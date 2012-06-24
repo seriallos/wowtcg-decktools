@@ -1,10 +1,10 @@
 class Pile
-  # cards currently in the pile
-  # Top is the end of the array (this is where card are drawn)
-  # Bottom is array index 0
-  cards: []
 
   constructor: () ->
+    # cards currently in the pile
+    # Top is the end of the array (this is where card are drawn)
+    # Bottom is array index 0
+    @cards = []
 
   # size of the pile
   size: () -> @cards.length
@@ -17,6 +17,19 @@ class Pile
 
   # draws from the top of the pile
   draw: () -> @cards.pop()
+
+  # return the top N cards
+  topCards: ( n = 1 ) -> @cards[ @cards.length - n.. ]
+
+  # returns the top card
+  topCard: () -> @topCards()[0]
+
+  bottomCards: ( n = 1 ) -> @cards[ ... n ]
+
+  bottomCard: () -> @bottomCards()[0]
+
+  # Nth card FROM THE TOP
+  nthCard: ( n ) -> @cards[ @cards.length - n ]
 
   # shuffle the pile using fisher yates method
   shuffle: () ->
