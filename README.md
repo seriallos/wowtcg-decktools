@@ -21,13 +21,15 @@ I like having a few terminal windows open always building and running the code. 
 windows:
 
 - Source editing
-- Continuous linting and building to JS for build/syntax errors
+- Continuous linting, testing, and compilation
 - Continuous execution of a test script to see results and runtime errors
 
 **Continuous compilation, linting, and testing:**
 
-    cake watch
-    jasmine-node --autotest --coffee src
+    ./pc.sh "cake watch" "jasmine-node --autotest --coffee src"
+
+pc.sh is a simple little bash script to run both commands at the same time and respond to a Ctrl-C to the one pc.sh
+command (instead of background shenanigans)
 
 Available cake tasks:
 
