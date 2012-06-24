@@ -5,8 +5,8 @@ class AllyCard extends Card
     # make sure we call Card's constructor to get all the basic data set
     super()
     @type =      'ally'
-    @attack =    0
-    @health =    0
+    @attack =    null
+    @health =    null
     @faction =   null   # horde, alliance, monster
     @races =      []   # undead, goblin, naga, etcc
     @allyClasses =     []   # rogue, shaman, etc
