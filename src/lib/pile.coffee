@@ -1,3 +1,5 @@
+# class to keep track of a pile of cards (technically, a pile of anything)
+# intended to represent decks, graveyards, and out-of-game cards
 class Pile
 
   constructor: () ->

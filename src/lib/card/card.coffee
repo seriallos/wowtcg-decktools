@@ -3,7 +3,7 @@ class Card
   constructor: () ->
     @type =       'unknown'
     @name =       null
-    @cost =       null
+    @baseCost =   null
     @type =       null
     @text =       null
     @expansion =  null
