@@ -32,3 +32,5 @@ runzik.text = 'When this ally enters play, he deals 1 ranged damage to target op
 console.log runzik
 console.log "is runzik a goblin? " + runzik.isRace( 'goblin' )
 console.log "is runzik a satyr? " + runzik.isRace( 'satyr' )
+console.log "is runzik a hunter? " + runzik.isClass( 'hunter' )
+console.log "is runzik a rogue? " + runzik.isClass( 'rogue' )
