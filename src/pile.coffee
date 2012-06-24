@@ -1,5 +1,3 @@
-Card = require('./card/card')
-
 class Pile
   # cards currently in the pile
   # Top is the end of the array (this is where card are drawn)
