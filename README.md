@@ -17,13 +17,25 @@ Ideas
 My Dev Cycle
 ------------
 
-Constant JS compilation and linting:
+I like having a few terminal windows open always building and running the code.  My current workflow is to have 3
+windows:
 
-    while true; do find . -name "*.coffee" -exec coffee -c -l {} \; ; sleep 1; done
+- Source editing
+- Continuous linting and building to JS for build/syntax errors
+- Continuous execution of a test script to see results and runtime errors
 
-Note: I want to use "coffee -w -l -c" but it likes to die with no reason.  In addition, find allows me to recursively
-find any coffee files anywhere in the whole project.
+**Continuous compilation and linting:**
 
-Continuous execution:
+    cake watch
 
-    while true; do node runner.js; echo -e "\n\n"; sleep 1; done
+Available cake tasks:
+
+    build       Just build the JS
+    watch       Watch src/ for changes, build and lint when changes occur
+    watch-lint  Watch src/ for changes, just lint, don't build
+
+**Continuous execution:**
+
+    while true; do coffee runner.coffee; echo -e "\n\n"; sleep 1; done
+
+I'm using a shell loop because 'watch coffee runner.coffee' makes error output unreadable.

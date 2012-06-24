@@ -16,7 +16,14 @@ task 'build', 'Build lib/ from src/', ->
   build()
 
 task 'watch', 'Watch src/ for changes', ->
-  coffee = spawn 'coffee', ['-w', '-c', '-o', 'lib', 'src' ]
+  coffee = spawn 'coffee', ['-w', '-c', '-l', '-o', 'lib', 'src' ]
+  coffee.stderr.on 'data', (data) ->
+    process.stderr.write data.toString()
+  coffee.stdout.on 'data', (data) ->
+    print data.toString()
+
+task 'watch-lint', 'Continous linting of src/', ->
+  coffee = spawn 'coffee', ['-w', '-l', 'src' ]
   coffee.stderr.on 'data', (data) ->
     process.stderr.write data.toString()
   coffee.stdout.on 'data', (data) ->
