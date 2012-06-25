@@ -2,9 +2,10 @@
 # Defines a list of what things are named and where they live, loads and exports them all
 
 modules = [
-  { class: 'Pile',     file: './deck/pile' },
-  { class: 'Card',     file: './card/card' },
-  { class: 'AllyCard', file: './card/ally' },
+  { class: 'Pile',       file: './deck/pile' },
+  { class: 'DeckLoader', file: './deck/deckloader' },
+  { class: 'Card',       file: './card/card' },
+  { class: 'AllyCard',   file: './card/ally' },
 ]
 
 setup_modules = ( info ) ->
