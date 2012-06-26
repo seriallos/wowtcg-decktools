@@ -1,9 +1,12 @@
 Pile = require('./pile').Pile
 fs   = require('fs')
 path = require('path')
+cl   = require('../card/cardloader').CardLoader
 
 class DeckLoader
   @loadFromDeckFile: (file) ->
+    if cl.LoadedSets().length == 0
+      throw new Error "No sets loaded, need to run CardLoader.LoadSet( SET )"
     # create a new pile
     deck = new Pile
     # open file
@@ -21,8 +24,13 @@ class DeckLoader
         matches = lineRegex.exec line
         [num, card_name] = [ matches[1], matches[2] ]
         # add the card X times
+        couldnt_load = []
         for i in [0...num]
-          deck.addTop card_name
+          card = cl.GetCard card_name
+          if card?
+            deck.addTop card
+          else
+            throw new Error "Unable to load card with name '#{card_name}'"
     return deck
 
   @readFileIntoArray: (file) ->
