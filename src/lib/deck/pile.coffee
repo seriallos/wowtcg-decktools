@@ -33,6 +33,9 @@ class Pile
   # Nth card FROM THE TOP
   nthCard: ( n ) -> @cards[ @cards.length - n ]
 
+  getCards: () ->
+    @cards
+
   # shuffle the pile using fisher yates method
   shuffle: () ->
     i = @cards.length
