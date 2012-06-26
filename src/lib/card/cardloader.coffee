@@ -20,11 +20,11 @@ class CardLoader
         if item.name? and item.type?
           # make the lookup key lower case
           @cards[ item.name.toLowerCase() ] = item
-      @loadedSets[ setName ] = true
+      @loadedSets.push( setName )
 
   @IsSetLoaded: ( setName ) ->
     setName = setName.toLowerCase()
-    return @loadedSets[ setName ]?
+    return setName in @loadedSets
 
   @GetCard: ( cardName ) ->
     cardName = cardName.toLowerCase()
@@ -33,5 +33,12 @@ class CardLoader
   @LoadedCards: () ->
     # fast, builtin way to count number of properties
     return Object.keys( @cards ).length
+
+  @LoadedSets: () ->
+    return @loadedSets
+
+  @Reset: () ->
+    @loadedSets = []
+    @cards = {}
 
 exports.CardLoader = CardLoader
