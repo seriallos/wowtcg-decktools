@@ -3,9 +3,13 @@ CardLoader = require('../card/cardloader').CardLoader
 
 describe 'deckloader', ->
 
+  beforeEach () ->
+    # reset the card loader to make sure we're starting fresh
+    CardLoader.Reset()
+
   it "throws an exception if no card sets have been loaded", ->
     loaderCall = () ->
-      DeckLoader.loadFromDeckFile( __dirname + '/bad-file' )
+      DeckLoader.loadFromDeckFile( __dirname + '/test.deck' )
     expect(loaderCall).toThrow()
 
   it 'can load a known deck from a .deck file', ->
