@@ -4,38 +4,47 @@
 
   {
     "name": "As Hyjal Burns",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "Blueleaf Tubers",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "Entrenched",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "The Maw of Iso'rath",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "The Last Living Lorekeeper",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "Rescue the Earthspeaker!",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "Seeds of Their Demise",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "Waking the Beast",
+    "cost": 0,
     "type": "quest"
   },
   {
     "name": "If You're Not Against Us...",
+    "cost": 0,
     "type": "quest"
   },
 
@@ -130,7 +139,7 @@
     "damagetype": "shadow"
   },
   {
-    "name": "With Doctor Ka'booma",
+    "name": "Witch Doctor Ka'booma",
     "type": "ally",
     "cost": 2,
     "attack": 4,
