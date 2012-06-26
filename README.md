@@ -26,7 +26,10 @@ windows:
 
 **Continuous compilation, linting, and testing:**
 
-    ./pc.sh "cake watch" "jasmine-node --autotest --coffee src"
+    ./run-o-tron-5000.sh
+    
+    # this just runs the below:
+    # ./pc.sh "cake watch" "jasmine-node --autotest --coffee src"
 
 pc.sh is a simple little bash script to run both commands at the same time and respond to a Ctrl-C to the one pc.sh
 command (instead of background shenanigans)
@@ -55,6 +58,6 @@ from my .vimrc:
 
 **Continuous execution:**
 
-    while true; do coffee runner.coffee; echo -e "\n\n"; sleep 1; done
+    while true; do coffee src/deckotron.coffee costs data/deck/famasin.deck; echo -e "\n\n"; sleep 1; done
 
 I'm using a shell loop because 'watch coffee runner.coffee' makes error output unreadable.
