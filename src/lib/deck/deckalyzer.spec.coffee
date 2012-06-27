@@ -153,7 +153,7 @@ describe 'deckalyzer', ->
       demon: 11
     }
     result = @deckalyzer.distinct( 'races', { name: { '$regex' : /jadefire/i } } )
-    # not yet working
+    # not yet working, arrays aren't quite working yet
     # (expect result).toEqual expected
 
 
