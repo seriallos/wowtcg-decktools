@@ -6,9 +6,6 @@
 - CLI
     - Bindings to deckalyzer count/distinct and filters
 
-- Data
-    - Move outside of src/ to JS can use?
-
 - General
     - Test in a browser, make sure it works on server and web client
 
