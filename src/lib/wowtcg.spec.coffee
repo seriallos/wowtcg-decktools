@@ -19,5 +19,6 @@ describe 'wowtcg', ->
     (expect allycard instanceof wowtcg.Card).toBe(true)
 
   it 'can load a deck from a deck file', ->
+    wowtcg.CardLoader.LoadSet( 'test' )
     deck = wowtcg.DeckLoader.loadFromDeckFile( __dirname + '/deck/test.deck' )
     (expect deck.size()).toEqual 61
