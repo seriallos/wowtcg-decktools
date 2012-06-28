@@ -1,0 +1,31 @@
+{
+  "name": "WoW TCG DeckTools"
+  , "preferGlobal": "false"
+  , "version": "0.1"
+  , "author": "Dave Hendler <sollaires@gmail.com>"
+  , "description": "WoW TCG Tools - deck stats, analysis, and more"
+  , "main": "./lib/lib/wowtcg.js"
+  , "repository": {
+      "type": "git"
+    , "url": "https://github.com/seriallos/wowtcg-decktools.git"
+  }
+  , "keywords": [
+      "wow"
+    , "tcg"
+    , "deck"
+    , "ccg"
+    , "magic"
+  ]
+
+  , "dependencies" : {
+    "commander" : "0.5.x"
+  }
+
+  , "devDependencies": {
+    "jasmine-node" : "1.0.x"
+  }
+
+  , "engine": {
+    "node" : ">=0.6"
+  }
+}
