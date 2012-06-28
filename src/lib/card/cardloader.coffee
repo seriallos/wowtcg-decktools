@@ -4,27 +4,22 @@ Card = require('./card').Card
 util = require('util')
 
 class CardLoader
-  @loadedSets: []
+  @loadedFiles: []
   @cards: {}
 
-  @LoadSet: ( setName ) ->
-    setName = setName.toLowerCase()
-    # only load a set once
-    if not @loadedSets[ setName ]?
-      # set files have an exact name pattern: SETNAME.json
-      fileName = __dirname + "/data/#{setName}.json"
-      contents = fs.readFileSync fileName
-      # file is json, just use require to suck it into @sets
-      rawSet = JSON.parse( contents )
-      for item in rawSet
+  @LoadCardsFromFile: ( cardFile ) ->
+    if not @loadedFiles[ cardFile ]?
+      contents = fs.readFileSync cardFile
+      # file is json, just use require to suck it into @cards
+      rawCards = JSON.parse( contents )
+      for item in rawCards
         if item.name? and item.type?
           # make the lookup key lower case
           @cards[ item.name.toLowerCase() ] = item
-      @loadedSets.push( setName )
+      @loadedFiles.push( cardFile )
 
-  @IsSetLoaded: ( setName ) ->
-    setName = setName.toLowerCase()
-    return setName in @loadedSets
+  @IsFileLoaded: ( cardFile ) ->
+    return cardFile in @loadedFiles
 
   @GetCard: ( cardName ) ->
     cardName = cardName.toLowerCase()
@@ -34,11 +29,11 @@ class CardLoader
     # fast, builtin way to count number of properties
     return Object.keys( @cards ).length
 
-  @LoadedSets: () ->
-    return @loadedSets
+  @LoadedFiles: () ->
+    return @loadedFiles
 
   @Reset: () ->
-    @loadedSets = []
+    @loadedFiles = []
     @cards = {}
 
 exports.CardLoader = CardLoader
