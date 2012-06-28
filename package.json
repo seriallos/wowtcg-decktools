@@ -13,8 +13,7 @@
       "wow"
     , "tcg"
     , "deck"
-    , "ccg"
-    , "magic"
+    , "wowtcg"
   ]
 
   , "dependencies" : {
