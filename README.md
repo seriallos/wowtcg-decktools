@@ -8,6 +8,14 @@ to use.
 
 Mostly hacked together data and scripts for now.  Just want to have a place to keep some of this random stuff together.
 
+Dependencies
+-----------
+
+- Node
+- CoffeeScript
+
+*Note:* NPM package isn't quite ready yet.  Manual installation requires node-commander.  More info in the package.json
+
 Usage
 -----
 
