@@ -1,6 +1,6 @@
 - Deckalyzer
     - Fix array values in distinct
-    - Move filter functionality into Pile
+    - Move filter functionality into Pile?
     - 1st hand percentages
 
 - CLI
@@ -16,3 +16,6 @@
     - CSV
     - Magic Workstation
     - OCTGN
+
+- Card Text Understanding
+    - onAttack, onDefend, onPlayed, etc?
