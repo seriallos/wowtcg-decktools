@@ -21,7 +21,8 @@
   }
 
   , "devDependencies": {
-    "jasmine-node" : "1.0.x"
+    "jasmine-node" : "1.0.x",
+    "csv" : "0.1.x"
   }
 
   , "engine": {
