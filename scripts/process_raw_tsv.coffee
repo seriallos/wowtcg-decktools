@@ -70,6 +70,11 @@ else
           if postProcess[ key ]
             # post process callback defined, run it
             data[ key ] = postProcess[ key ]( val )
+
+      # special cases
+      if data.type == 'Quest'
+        data.cost = 0
+
       return data
 
     # error reporting
