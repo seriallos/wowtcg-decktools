@@ -8,6 +8,29 @@ to use.
 
 Mostly hacked together data and scripts for now.  Just want to have a place to keep some of this random stuff together.
 
+Usage
+-----
+
+    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron costs data/decks/famasin.deck
+    Cost 0: 12 cards
+    Cost 1: 4 cards
+    Cost 2: 13 cards
+    Cost 3: 12 cards
+    Cost 4: 10 cards
+    Cost 5: 4 cards
+    Cost 6: 6 cards
+
+    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron costs data/decks/famasin.deck '{"type":"Ally"}'
+    Cost 1: 3 cards
+    Cost 2: 4 cards
+    Cost 3: 8 cards
+    Cost 4: 6 cards
+    Cost 5: 2 cards
+    Cost 6: 5 cards
+
+    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron count data/decks/famasin.deck '{"type":"Ability"}'
+    19
+
 Ideas
 -----
 
