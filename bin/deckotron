@@ -17,36 +17,45 @@ loadDeck = ( deckFile ) ->
       wowtcg.CardLoader.loadCardsFromFile __dirname + "/../data/cards/#{set}.json"
   deck = wowtcg.DeckLoader.loadFromDeckFile deckFile
 
+# helper to parse a deck file, call deckalyzer, and return data
+callDeckalyzer = ( deckFile, callback, args ) ->
+  filter = null
+  try
+    if args.filter
+      filter = JSON.parse args.filter
+  catch error
+    console.log "ERROR: Invalid JSON query (Must be fully quoted): " + error.message
+
+  deck = loadDeck deckFile
+  if null == deck
+    stderr "Unable to load #{ deckFile }"
+  d = new wowtcg.Deckalyzer deck
+  return switch callback
+    when 'count' then d.count( filter )
+    when 'distinct' then d.distinct( args.type, filter )
+    else console.log "Unknown command"
+
 program
   .version('0.1')
 
 program
-  .command('costs [deck] [query]')
+  .command('distinct [type] [deck] [query]')
   .description('Report costs for a deck')
-  .action( ( deckFile, query ) ->
-    if query
-      query = JSON.parse query
-    deck = loadDeck deckFile
-    if null == deck
-      stderr "Unable to load #{ deckFile }"
-    d = new wowtcg.Deckalyzer deck
-    costs = d.distinct( 'cost', query )
+  .action( ( type, deckFile, query ) ->
+    costs = callDeckalyzer deckFile, 'distinct', { type: type, filter: query }
     for cost, count of costs
-      console.log "Cost #{cost}: #{count} cards"
+      if cost
+        console.log "#{cost}: #{count} cards"
   )
 
 program
   .command('count [deck] [query]')
   .description('Get count of cards in a deck')
   .action( (deckFile, query ) ->
-    if query
-      query = JSON.parse query
-    deck = loadDeck deckFile
-    if null == deck
-      stderr "Unable to load #{ deckFile }"
-    d = new wowtcg.Deckalyzer deck
-    count = d.count( query )
+    count = callDeckalyzer deckFile, 'count', { filter: query }
     console.log count
   )
 
 program.parse( process.argv )
+
+# vim: ft=coffee

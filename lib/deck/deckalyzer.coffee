@@ -12,10 +12,11 @@ class Deckalyzer
     results = {}
     for card in filtered.getCards()
       # TODO: properly handle array values
-      if results[ card[ key ] ]
-        results[ card[ key ] ] += 1
-      else
-        results[ card[ key ] ] = 1
+      if card[ key ]
+        if results[ card[ key ] ]
+          results[ card[ key ] ] += 1
+        else
+          results[ card[ key ] ] = 1
     return results
 
   # get a count based on a filter

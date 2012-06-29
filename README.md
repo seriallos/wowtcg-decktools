@@ -19,22 +19,22 @@ Dependencies
 Usage
 -----
 
-    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron costs data/decks/famasin.deck
-    Cost 0: 12 cards
-    Cost 1: 4 cards
-    Cost 2: 13 cards
-    Cost 3: 12 cards
-    Cost 4: 10 cards
-    Cost 5: 4 cards
-    Cost 6: 6 cards
+    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron distinct cost data/decks/famasin.deck
+    0: 12 cards
+    1: 4 cards
+    2: 13 cards
+    3: 12 cards
+    4: 10 cards
+    5: 4 cards
+    6: 6 cards
 
-    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron costs data/decks/famasin.deck '{"type":"Ally"}'
-    Cost 1: 3 cards
-    Cost 2: 4 cards
-    Cost 3: 8 cards
-    Cost 4: 6 cards
-    Cost 5: 2 cards
-    Cost 6: 5 cards
+    ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron distinct cost data/decks/famasin.deck '{"type":"Ally"}'
+    1: 3 cards
+    2: 4 cards
+    3: 8 cards
+    4: 6 cards
+    5: 2 cards
+    6: 5 cards
 
     ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron count data/decks/famasin.deck '{"type":"Ability"}'
     19
@@ -45,7 +45,7 @@ Usage
 
      Commands:
     
-       costs [deck] [query]
+       distinct [type] [deck] [query]
        Report costs for a deck
     
        count [deck] [query]
