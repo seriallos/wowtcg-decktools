@@ -8,6 +8,7 @@ stderr = ( msg ) ->
 
 # utility function to load a deck file
 loadDeck = ( deckFile ) ->
+  wowtcg.CardLoader.loadCardsFromFile __dirname + "/../data/cards/ele.json"
   deck = wowtcg.DeckLoader.loadFromDeckFile deckFile
 
 program
@@ -20,7 +21,7 @@ program
     deck = loadDeck deckFile
     if null == deck
      stderr "Unable to load #{ deckFile }"
-    # deckalyzer.analyzeCosts deck
+    deckalyzer.analyzeCosts deck
   )
 
 program.parse( process.argv )

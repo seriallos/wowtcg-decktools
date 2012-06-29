@@ -12,27 +12,27 @@ describe 'cardloader', ->
   it 'can load cards from a .json file', ->
 
     # check starting conditions
-    (expect CardLoader.GetCard('Gnash')).toBe(null)
-    (expect CardLoader.IsFileLoaded( testCardsFile )).toBe(false)
+    (expect CardLoader.getCard('Gnash')).toBe(null)
+    (expect CardLoader.isFileLoaded( testCardsFile )).toBe(false)
 
     # load it
-    CardLoader.LoadCardsFromFile( testCardsFile )
-    (expect CardLoader.IsFileLoaded(testCardsFile)).toBe(true)
+    CardLoader.loadCardsFromFile( testCardsFile )
+    (expect CardLoader.isFileLoaded(testCardsFile)).toBe(true)
 
     # we know the test file contains 40 cards
-    (expect CardLoader.LoadedCards()).toEqual 40
+    (expect CardLoader.loadedCards()).toEqual 40
 
-    # running LoadCardsFromFile again shouldn't change anything
-    CardLoader.LoadCardsFromFile( testCardsFile )
-    (expect CardLoader.LoadedCards()).toEqual 40
+    # running loadCardsFromFile again shouldn't change anything
+    CardLoader.loadCardsFromFile( testCardsFile )
+    (expect CardLoader.loadedCards()).toEqual 40
 
     # ensure case insensitivity
-    (expect CardLoader.GetCard('Gnash')).not.toBe(null)
-    (expect CardLoader.GetCard('gnash')).not.toBe(null)
-    (expect CardLoader.GetCard('GNASH')).not.toBe(null)
+    (expect CardLoader.getCard('Gnash')).not.toBe(null)
+    (expect CardLoader.getCard('gnash')).not.toBe(null)
+    (expect CardLoader.getCard('GNASH')).not.toBe(null)
 
     # check a raw card
-    gnash = CardLoader.GetCard 'Gnash'
+    gnash = CardLoader.getCard 'Gnash'
 
     (expect gnash.cost).toEqual 6
     (expect gnash.attack).toEqual 4

@@ -15,7 +15,7 @@ describe 'wowtcg', ->
 
   it 'can load a deck from a deck file', ->
     writeTestFiles()
-    wowtcg.CardLoader.LoadCardsFromFile( testCardsFile )
+    wowtcg.CardLoader.loadCardsFromFile( testCardsFile )
     deck = wowtcg.DeckLoader.loadFromDeckFile( testDeckFile )
     (expect deck.size()).toEqual 61
     deleteTestFiles()

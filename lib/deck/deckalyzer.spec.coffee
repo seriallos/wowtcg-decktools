@@ -11,7 +11,7 @@ describe 'deckalyzer', ->
     # ensure we have a loaded deck for every test
     writeTestFiles()
 
-    CardLoader.LoadCardsFromFile testCardsFile
+    CardLoader.loadCardsFromFile testCardsFile
     @testDeck = DeckLoader.loadFromDeckFile testDeckFile
     (expect @testDeck.size()).toEqual 61
 

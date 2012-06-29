@@ -5,7 +5,7 @@ cl   = require('../card/cardloader').CardLoader
 
 class DeckLoader
   @loadFromDeckFile: (file) ->
-    if cl.LoadedFiles().length == 0
+    if cl.loadedFiles.length == 0
       throw new Error "No sets loaded, need to run CardLoader.LoadSet( SET )"
     # create a new pile
     deck = new Pile
@@ -26,7 +26,7 @@ class DeckLoader
         # add the card X times
         couldnt_load = []
         for i in [0...num]
-          card = cl.GetCard card_name
+          card = cl.getCard card_name
           if card?
             deck.addTop card
           else

@@ -7,7 +7,7 @@ class CardLoader
   @loadedFiles: []
   @cards: {}
 
-  @LoadCardsFromFile: ( cardFile ) ->
+  @loadCardsFromFile: ( cardFile ) ->
     if not @loadedFiles[ cardFile ]?
       contents = fs.readFileSync cardFile
       # file is json, just use require to suck it into @cards
@@ -18,21 +18,18 @@ class CardLoader
           @cards[ item.name.toLowerCase() ] = item
       @loadedFiles.push( cardFile )
 
-  @IsFileLoaded: ( cardFile ) ->
+  @isFileLoaded: ( cardFile ) ->
     return cardFile in @loadedFiles
 
-  @GetCard: ( cardName ) ->
+  @getCard: ( cardName ) ->
     cardName = cardName.toLowerCase()
     return if @cards[ cardName ]? then @cards[ cardName ] else null
 
-  @LoadedCards: () ->
+  @loadedCards: () ->
     # fast, builtin way to count number of properties
     return Object.keys( @cards ).length
 
-  @LoadedFiles: () ->
-    return @loadedFiles
-
-  @Reset: () ->
+  @reset: () ->
     @loadedFiles = []
     @cards = {}
 

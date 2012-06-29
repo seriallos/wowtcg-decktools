@@ -6,7 +6,7 @@ describe 'deckloader', ->
 
   beforeEach () ->
     # reset the card loader to make sure we're starting fresh
-    CardLoader.Reset()
+    CardLoader.reset()
     writeTestFiles()
 
   afterEach () ->
@@ -14,12 +14,12 @@ describe 'deckloader', ->
 
   it "throws an exception if no card sets have been loaded", ->
     loaderCall = () ->
-      DeckLoader.loadFromDeckFile( __dirname + '/test.deck' )
+      DeckLoader.loadFromDeckFile( testDeckFile )
     expect(loaderCall).toThrow()
 
   it 'can load a known deck from a .deck file', ->
     # make sure we load the test card set
-    CardLoader.LoadCardsFromFile( testCardsFile )
+    CardLoader.loadCardsFromFile( testCardsFile )
 
     # we know the test file contains 61 cards
     testDeck = DeckLoader.loadFromDeckFile( testDeckFile )
@@ -27,7 +27,7 @@ describe 'deckloader', ->
 
   it "returns null when a file can't be read", ->
     # make sure we load the test card set
-    CardLoader.LoadCardsFromFile testCardsFile
+    CardLoader.loadCardsFromFile testCardsFile
 
     testDeck = DeckLoader.loadFromDeckFile( __dirname + '/bad-file' )
     (expect testDeck).toBe(null)
