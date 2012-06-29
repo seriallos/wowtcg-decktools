@@ -42,7 +42,8 @@ describe 'cardloader', ->
 
   # keep all test data in this file as well as methods to write/delete
 
-  testCardsFile = __dirname + '/.test.cards'
+  randSeed = Math.floor( Math.random() * 999999999 )
+  testCardsFile = __dirname + '/.test.'+randSeed+'.cards'
 
   writeTestFiles = () ->
     fs.writeFileSync( testCardsFile, testCardsData )
