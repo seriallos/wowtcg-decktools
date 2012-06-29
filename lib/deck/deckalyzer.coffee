@@ -90,7 +90,8 @@ class Deckalyzer
           value
         else
           not value
-      else throw new Error "Unsupported operator " + operator
+      else
+        throw new Error "Unsupported operator " + operator
 
   # filter has to be an object with keys
   _invalidFilter: ( filter ) ->
