@@ -5,7 +5,6 @@ modules = [
   { class: 'Pile',       file: './deck/pile' },
   { class: 'DeckLoader', file: './deck/deckloader' },
   { class: 'Card',       file: './card/card' },
-  { class: 'AllyCard',   file: './card/ally' },
   { class: 'CardLoader', file: './card/cardloader' },
 ]
 

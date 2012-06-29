@@ -13,12 +13,6 @@ describe 'wowtcg', ->
     (expect card).not.toBe(null)
     (expect card instanceof wowtcg.Card).toBe(true)
 
-  it 'can work with ally cards', ->
-    allycard = new wowtcg.AllyCard
-    (expect allycard).not.toBe(null)
-    (expect allycard instanceof wowtcg.AllyCard).toBe(true)
-    (expect allycard instanceof wowtcg.Card).toBe(true)
-
   it 'can load a deck from a deck file', ->
     writeTestFiles()
     wowtcg.CardLoader.LoadCardsFromFile( testCardsFile )
@@ -26,8 +20,9 @@ describe 'wowtcg', ->
     (expect deck.size()).toEqual 61
     deleteTestFiles()
 
-  testDeckFile = __dirname + '/.test.deck'
-  testCardsFile = __dirname + '/.test.cards'
+  randSeed = Math.floor( Math.random() * 999999999 )
+  testDeckFile = __dirname + '/.test.'+randSeed+'.deck'
+  testCardsFile = __dirname + '/.test.'+randSeed+'.cards'
 
   writeTestFiles = () ->
     fs.writeFileSync( testDeckFile, testDeckData )
