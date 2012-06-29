@@ -39,7 +39,7 @@ Usage
     ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron count data/decks/famasin.deck '{"type":"Ability"}'
     19
 
-   ➜  wowtcg-decktools git:(master) ./bin/deckotron -h
+    ➜  wowtcg-decktools git:(master) ./bin/deckotron -h
 
      Usage: deckotron [options] [command]
 
