@@ -39,11 +39,24 @@ Usage
     ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron count data/decks/famasin.deck '{"type":"Ability"}'
     19
 
-Ideas
------
+   ➜  wowtcg-decktools git:(master) ./bin/deckotron -h
 
-- Deck composition/stats
-- First hand stats
+     Usage: deckotron [options] [command]
+
+     Commands:
+    
+       costs [deck] [query]
+       Report costs for a deck
+    
+       count [deck] [query]
+       Get count of cards in a deck
+    
+     Options:
+     
+       -h, --help     output usage information
+       -V, --version  output the version number
+
+The query is a MongoDB-like JSON syntax.  Currently must be valid JSON (quoted keys, etc).  Some of the more complex filters don't work on the command line yet.
 
 My Dev Cycle
 ------------
