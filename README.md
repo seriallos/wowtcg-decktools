@@ -73,7 +73,7 @@ windows:
     ./run-o-tron-5000.sh
     
     # this just runs the below:
-    # ./pc.sh "cake watch" "jasmine-node --autotest --coffee src"
+    # ./pc.sh "cake watch" "jasmine-node --autotest --coffee lib"
 
 pc.sh is a simple little bash script to run both commands at the same time and respond to a Ctrl-C to the one pc.sh
 command (instead of background shenanigans)
@@ -81,8 +81,8 @@ command (instead of background shenanigans)
 Available cake tasks:
 
     build       Just build the JS
-    watch       Watch src/ for changes, build and lint when changes occur
-    watch-lint  Watch src/ for changes, just lint, don't build
+    watch       Watch lib/ for changes, build and lint when changes occur
+    watch-lint  Watch lib/ for changes, just lint, don't build
 
 I have some Jasmine specs written in CoffeeScript around the codebase.  Running the jasmine-node with autotest
 immediately runs the tests when one of the files is modified.  It's super cool.
