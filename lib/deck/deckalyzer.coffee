@@ -30,6 +30,7 @@ class Deckalyzer
       for card in @deck.getCards()
         filtered.addTop card
     else if @_invalidFilter( filter )
+      donothing = "ok"
     else
       for card in @deck.getCards()
         if @_evalFilter card, filter
