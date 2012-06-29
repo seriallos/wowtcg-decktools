@@ -2,28 +2,46 @@
 wowtcg  = require('../lib/wowtcg')
 program = require('commander')
 
+dataDir = __dirname + '/../data/'
+
+setInfo = require( dataDir + 'cards/setlist.json' )
+
 # write to stderr
 stderr = ( msg ) ->
   process.stderr.write msg + "\n"
 
 # utility function to load a deck file
 loadDeck = ( deckFile ) ->
-  wowtcg.CardLoader.loadCardsFromFile __dirname + "/../data/cards/ele.json"
+  for set, info of setInfo
+    if info.block == 6
+      wowtcg.CardLoader.loadCardsFromFile __dirname + "/../data/cards/#{set}.json"
   deck = wowtcg.DeckLoader.loadFromDeckFile deckFile
 
 program
   .version('0.1')
 
 program
-  .command('costs [deck]')
-  .description('Report cost statistics for a .deck file')
-  .action( ( deckFile ) ->
+  .command('costs [deck] [query]')
+  .description('Report costs for a deck')
+  .action( ( deckFile, query ) ->
     deck = loadDeck deckFile
     if null == deck
-     stderr "Unable to load #{ deckFile }"
-    deckalyzer.analyzeCosts deck
+      stderr "Unable to load #{ deckFile }"
+    d = new wowtcg.Deckalyzer deck
+    costs = d.distinct( 'cost', JSON.parse( query ) )
+    console.log costs
+  )
+
+program
+  .command('count [deck] [query]')
+  .description('Get count of cards in a deck')
+  .action( (deckFile, query ) ->
+    deck = loadDeck deckFile
+    if null == deck
+      stderr "Unable to load #{ deckFile }"
+    d = new wowtcg.Deckalyzer deck
+    count = d.count( JSON.parse( query ) )
+    console.log count
   )
 
 program.parse( process.argv )
-
-stderr('')
