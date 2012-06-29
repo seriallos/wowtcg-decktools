@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<deck game="d7e6fd4f-5252-4c4c-4a4a-a645c4d8e45f">
+  <section name="Main">
+    <card qty="2" >As Hyjal Burns</card>
+    <card qty="1" >Bloodbane's Fall</card>
+    <card qty="1" >Blueleaf Tubers</card>
+    <card qty="1" >Branch of Nordrassil</card>
+    <card qty="1" >Deathsmasher Mogdar</card>
+    <card qty="2" >Entangling Roots</card>
+    <card qty="2" >Entrenched</card>
+    <card qty="3" >Friends in High Places</card>
+    <card qty="1" >Gilblin Plunderer</card>
+    <card qty="1" >Gnash</card>
+    <card qty="1" >Gravelord Adams</card>
+    <card qty="1" >Grug the Bonecrusher</card>
+    <card qty="1" >Harpy Matriarch</card>
+    <card qty="1" >If You're Not Against Us...</card>
+    <card qty="1" >Innervate</card>
+    <card qty="2" >Jadefire Felsworn</card>
+    <card qty="2" >Jadefire Hellcaller</card>
+    <card qty="1" >Jadefire Satyr</card>
+    <card qty="2" >Jadefire Scout</card>
+    <card qty="4" >Jadefire Trickster</card>
+    <card qty="1" >Kalam'ti</card>
+    <card qty="1" >Keeper Balos</card>
+    <card qty="1" >Mark of Elderlimb</card>
+    <card qty="2" >Mark of Goldrinn</card>
+    <card qty="1" >Mark of the Ancients</card>
+    <card qty="2" >Moonshard</card>
+    <card qty="1" >Nature's Reach</card>
+    <card qty="1" >Rescue the Earthspeaker!</card>
+    <card qty="1" >Runzik Shrapnelwhiz</card>
+    <card qty="1" >Seeds of Their Demise</card>
+    <card qty="2" >Stalwart Bear Form</card>
+    <card qty="3" >Stonebranch, Ancient of War</card>
+    <card qty="2" >The Last Living Lorekeeper</card>
+    <card qty="1" >The Maw of Iso'rath</card>
+    <card qty="1" >Tor Earthwalker</card>
+    <card qty="1" >Trag'ush</card>
+    <card qty="4" >Verdant Boon</card>
+    <card qty="1" >Waking the Beast</card>
+    <card qty="2" >Witch Doctor Ka'booma</card>
+    <card qty="1" >Zaza'jun</card>
+  </section>
+  <section name="Hero">
+    <card qty="1" >Fama'sin the Lifeseer</card>
+    <card qty="1" >Fama'sin the Lifeseer Back</card>
+  </section>
+</deck>
