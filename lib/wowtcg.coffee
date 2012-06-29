@@ -6,6 +6,7 @@ modules = [
   { class: 'DeckLoader', file: './deck/deckloader' },
   { class: 'Card',       file: './card/card' },
   { class: 'CardLoader', file: './card/cardloader' },
+  { class: 'Deckalyzer', file: './deck/deckalyzer' },
 ]
 
 setup_modules = ( info ) ->
