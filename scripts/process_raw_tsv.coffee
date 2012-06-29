@@ -22,6 +22,21 @@ keyMap = {
   atk: "attack"
 }
 
+defaults = {
+  cost: 0
+}
+
+postProcess = {
+  cost: parseInt,
+  health: parseInt,
+  attack: parseInt,
+  block: parseInt,
+  original: parseInt,
+  released: parseInt,
+  cardid: parseInt,
+  no: parseInt,
+}
+
 if not cli.file or not cli.outdir
   console.log "USAGE: " + process.argv[0] + " -f CSVFILE -o OUTPUT_DIRECTORY"
 else
@@ -40,12 +55,21 @@ else
     .transform (data) ->
       for key, val of data
         if not val
-          delete data[ key ]
+          if defaults[ key ]
+            # this key has a defined default, use it
+            data[ key ] = defaults[ key ]
+          else
+            # no default, delete it
+            delete data[ key ]
         else
           if keyMap[ key ]
             data[ keyMap[ key ] ] = val
             delete data[ key ]
-
+            # swap key name so we can use for postProcess
+            key = keyMap[ key ]
+          if postProcess[ key ]
+            # post process callback defined, run it
+            data[ key ] = postProcess[ key ]( val )
       return data
 
     # error reporting
@@ -59,6 +83,7 @@ else
         outData[ set ] = {
           setcode: set,
           setname: data.setname,
+          block: data.block,
           cards: []
         }
       # assume the shortest setname is the best (gets rid of loot and EA suffixes)
@@ -71,7 +96,7 @@ else
       # once done, write out a bunch of files based on the set name
       setMap = {}
       for set, info of outData
-        setMap[ set ] = info.setname
+        setMap[ set ] = { setname: info.setname, block: info.block }
         outFile = cli.outdir + set + '.json'
         fs.writeFile( outFile, JSON.stringify( info.cards ) )
       # write out a small JSON map of set code => set name
