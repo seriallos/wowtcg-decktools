@@ -100,8 +100,3 @@ from my .vimrc:
     set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
     set writebackup
 
-**Continuous execution:**
-
-    while true; do coffee src/deckotron.coffee costs data/deck/famasin.deck; echo -e "\n\n"; sleep 1; done
-
-I'm using a shell loop because 'watch coffee runner.coffee' makes error output unreadable.
