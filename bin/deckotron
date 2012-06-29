@@ -24,23 +24,28 @@ program
   .command('costs [deck] [query]')
   .description('Report costs for a deck')
   .action( ( deckFile, query ) ->
+    if query
+      query = JSON.parse query
     deck = loadDeck deckFile
     if null == deck
       stderr "Unable to load #{ deckFile }"
     d = new wowtcg.Deckalyzer deck
-    costs = d.distinct( 'cost', JSON.parse( query ) )
-    console.log costs
+    costs = d.distinct( 'cost', query )
+    for cost, count of costs
+      console.log "Cost #{cost}: #{count} cards"
   )
 
 program
   .command('count [deck] [query]')
   .description('Get count of cards in a deck')
   .action( (deckFile, query ) ->
+    if query
+      query = JSON.parse query
     deck = loadDeck deckFile
     if null == deck
       stderr "Unable to load #{ deckFile }"
     d = new wowtcg.Deckalyzer deck
-    count = d.count( JSON.parse( query ) )
+    count = d.count( query )
     console.log count
   )
 
