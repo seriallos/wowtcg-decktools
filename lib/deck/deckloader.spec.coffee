@@ -32,8 +32,9 @@ describe 'deckloader', ->
     testDeck = DeckLoader.loadFromDeckFile( __dirname + '/bad-file' )
     (expect testDeck).toBe(null)
 
-  testDeckFile = __dirname + '/.test.deck'
-  testCardsFile = __dirname + '/.test.cards'
+  randSeed = Math.floor( Math.random() * 99999999 )
+  testDeckFile = __dirname + '/.test.'+randSeed+'.deck'
+  testCardsFile = __dirname + '/.test.'+randSeed+'.cards'
 
   writeTestFiles = () ->
     fs.writeFileSync( testDeckFile, testDeckData )
