@@ -18,6 +18,10 @@ cli.option('-o --outdir [outdir]', 'Output Directory')
 
 outData = {}
 
+keyMap = {
+  atk: "attack"
+}
+
 if not cli.file or not cli.outdir
   console.log "USAGE: " + process.argv[0] + " -f CSVFILE -o OUTPUT_DIRECTORY"
 else
@@ -37,6 +41,10 @@ else
       for key, val of data
         if not val
           delete data[ key ]
+        else
+          if keyMap[ key ]
+            data[ keyMap[ key ] ] = val
+            delete data[ key ]
 
       return data
 
