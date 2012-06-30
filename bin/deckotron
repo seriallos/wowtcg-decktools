@@ -12,11 +12,15 @@ stderr = ( msg ) ->
   process.stderr.write msg + "\n"
 
 # utility function to load a deck file
-loadDeck = ( deckFile ) ->
+loadDeck = ( deckFile, whenLoaded ) ->
   for set, info of setInfo
     if info.block == 6
       wowtcg.CardLoader.loadCardsFromFile __dirname + "/../data/cards/#{set}.json"
-  deck = wowtcg.DeckLoader.loadFromDeckFile deckFile
+  dl = new wowtcg.DeckLoader()
+  try
+    dl.loadFromDeckFile deckFile, whenLoaded
+  catch error
+    stderr "[ERROR] Unable to load file #{deckFile}" + error.message
 
 # helper to parse a deck file, call deckalyzer, and return data
 callDeckalyzer = ( deckFile, callback, args ) ->
@@ -27,15 +31,15 @@ callDeckalyzer = ( deckFile, callback, args ) ->
   catch error
     stderr "[WARNING] Invalid JSON query (Must be fully quoted): " + error.message
 
-  deck = loadDeck deckFile
-  if null == deck
-    stderr "[ERROR] Unable to load #{ deckFile }"
-    process.exit 1
-  d = new wowtcg.Deckalyzer deck
-  return switch callback
-    when 'count' then d.count( filter )
-    when 'distinct' then d.distinct( args.type, filter )
-    else stderr "Unknown command"
+  loadDeck deckFile, ( deck ) ->
+    if null == deck
+      stderr "[ERROR] Unable to load #{ deckFile }"
+      process.exit 1
+    d = new wowtcg.Deckalyzer deck
+    return switch callback
+      when 'count' then d.count( filter )
+      when 'distinct' then d.distinct( args.type, filter )
+      else stderr "Unknown command"
 
 # commander code to handle arguments
 

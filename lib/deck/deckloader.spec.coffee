@@ -9,39 +9,62 @@ describe 'deckloader', ->
     CardLoader.reset()
     writeTestFiles()
 
+    # make sure we load the test card set
+    CardLoader.loadCardsFromFile( testCardsFile )
+
   afterEach () ->
     deleteTestFiles()
 
   it "throws an exception if no card sets have been loaded", ->
+    # ensure no cards are in the card loader given that we preload every time
+    CardLoader.reset()
     loaderCall = () ->
-      DeckLoader.loadFromDeckFile( testDeckFile )
+      dl = new DeckLoader()
+      dl.loadFromDeckFile( testDeckFile )
     expect(loaderCall).toThrow()
 
   it 'can load a known deck from a .deck file', ->
-    # make sure we load the test card set
-    CardLoader.loadCardsFromFile( testCardsFile )
-
     # we know the test file contains 61 cards
-    testDeck = DeckLoader.loadFromDeckFile( testDeckFile )
-    (expect testDeck.size()).toEqual 61
+    dl = new DeckLoader()
+    dl.loadFromDeckFile( testDeckFile )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
 
   it "returns null when a file can't be read", ->
-    # make sure we load the test card set
-    CardLoader.loadCardsFromFile testCardsFile
+    loaderCall = () ->
+      dl = new DeckLoader()
+      dl.loadFromDeckFile( __dirname + '/bad-file' )
+    expect(loaderCall).toThrow()
 
-    testDeck = DeckLoader.loadFromDeckFile( __dirname + '/bad-file' )
-    (expect testDeck).toBe(null)
+  it "throws an exception when the file doesn't exist", ->
+    loaderCall = () ->
+      dl = new DeckLoader()
+      testDeck = dl.loadFromCsvFile( "/ADB/BAD/ASDASD/bad.csv" )
+    expect(loaderCall).toThrow()
+
+  it "can load a known CSV deck file", ->
+    dl = new DeckLoader()
+    dl.loadFromCsvFile( testCsvFile )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
 
   randSeed = Math.floor( Math.random() * 99999999 )
   testDeckFile = __dirname + '/.test.'+randSeed+'.deck'
+  testCsvFile = __dirname + '/.test.'+randSeed+'.csv'
   testCardsFile = __dirname + '/.test.'+randSeed+'.cards'
 
   writeTestFiles = () ->
     fs.writeFileSync( testDeckFile, testDeckData )
+    fs.writeFileSync( testCsvFile, testCsvData )
     fs.writeFileSync( testCardsFile, testCardsData )
 
   deleteTestFiles = () ->
     fs.unlinkSync( testDeckFile )
+    fs.unlinkSync( testCsvFile )
     fs.unlinkSync( testCardsFile )
 
   testDeckData = """
@@ -89,6 +112,52 @@ describe 'deckloader', ->
   2 Jadefire Felsworn
   1 Grug the Bonecrusher
   1 Gnash
+  """
+
+  testCsvData = """
+"Fama'sin - Limited League Deck"
+
+"As Hyjal Burns",2,CoH,Quest,6
+"Bloodbane's Fall",1,SW,Equipment,5
+"Blueleaf Tubers",1,HoA,Quest,5
+"Branch of Nordrassil",1,CoH,Equipment,6
+"Deathsmasher Mogdar",1,CoH,Ally,6
+"Entangling Roots",2,HoA,Ability,6
+Entrenched,2,ELE,Quest,5
+"Fama'sin the Lifeseer",1,TOT,Hero,6
+"Friends in High Places",3,BoG,Ability,6
+"Gilblin Plunderer",1,TOT,Ally,6
+Gnash,1,TOT,Ally,6
+"Gravelord Adams",1,CoH,Ally,6
+"Grug the Bonecrusher",1,CoH,Ally,6
+"Harpy Matriarch",1,CoH,Ally,6
+"If You're Not Against Us...",1,CoH,Quest,6
+Innervate,1,HoA,Ability,6
+"Jadefire Felsworn",2,CoH,Ally,6
+"Jadefire Hellcaller",2,CoH,Ally,6
+"Jadefire Satyr",1,CoH,Ally,6
+"Jadefire Scout",2,CoH,Ally,6
+"Jadefire Trickster",4,CoH,Ally,6
+Kalam'ti,1,TOT,Ally,6
+"Keeper Balos",1,CoH,Ally,6
+"Mark of Elderlimb",1,CoH,Ability,6
+"Mark of Goldrinn",2,TOT,Ability,6
+"Mark of the Ancients",1,CoH,Ability,6
+Moonshard,2,ELE,Ability,5
+"Nature's Reach",1,BoG,Ability,6
+"Rescue the Earthspeaker!",1,TOT,Quest,6
+"Runzik Shrapnelwhiz",1,TOT,Ally,6
+"Seeds of Their Demise",1,TOT,Quest,6
+"Stalwart Bear Form",2,TOT,Ability,6
+"Stonebranch, Ancient of War",3,CoH,Ally,6
+"The Last Living Lorekeeper",2,TOT,Quest,6
+"The Maw of Iso'rath",1,ToD,Quest,5
+"Tor Earthwalker",1,CoH,Ally,6
+Trag'ush,1,CoH,Ally,6
+"Verdant Boon",4,TOT,Ability,6
+"Waking the Beast",1,TOT,Quest,6
+"Witch Doctor Ka'booma",2,CoH,Ally,6
+Zaza'jun,1,CoH,Ally,6
   """
 
   testCardsData = """

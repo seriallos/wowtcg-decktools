@@ -16,9 +16,13 @@ describe 'wowtcg', ->
   it 'can load a deck from a deck file', ->
     writeTestFiles()
     wowtcg.CardLoader.loadCardsFromFile( testCardsFile )
-    deck = wowtcg.DeckLoader.loadFromDeckFile( testDeckFile )
-    (expect deck.size()).toEqual 61
-    deleteTestFiles()
+    dl = new wowtcg.DeckLoader()
+    dl.loadFromDeckFile( testDeckFile )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+      deleteTestFiles()
 
   randSeed = Math.floor( Math.random() * 999999999 )
   testDeckFile = __dirname + '/.test.'+randSeed+'.deck'

@@ -1,14 +1,23 @@
 Pile = require('./pile').Pile
+cl   = require('../card/cardloader').CardLoader
 fs   = require('fs')
 path = require('path')
-cl   = require('../card/cardloader').CardLoader
+csv  = require('csv')
 
 class DeckLoader
-  @loadFromDeckFile: (file) ->
-    if cl.loadedFiles.length == 0
+
+  constructor: () ->
+    @loaded = false
+    @deck = new Pile()
+    @loadedCallback = null
+
+  loadFromDeckFile: (file, loadedCallback ) ->
+    @loaded = false
+    @loadedCallback = loadedCallback
+    if not @cardsLoaded
       throw new Error "No sets loaded, need to run CardLoader.LoadSet( SET )"
     # create a new pile
-    deck = new Pile
+    @deck = new Pile()
     # open file
     deckLines = @readFileIntoArray( file )
     if deckLines == null then return null
@@ -28,15 +37,53 @@ class DeckLoader
         for i in [0...num]
           card = cl.getCard card_name
           if card?
-            deck.addTop card
+            @deck.addTop card
           else
             throw new Error "Unable to load card with name '#{card_name}'"
-    return deck
+    @handleLoadedData()
 
-  @readFileIntoArray: (file) ->
+  loadFromCsvFile: (file, loadedCallback) ->
+    @loaded = false
+    @loadedCallback = loadedCallback
+    if not @cardsLoaded
+      throw new Error "No sets loaded, need to run CardLoader.LoadSet( SET )"
+    if not path.existsSync( file )
+      throw new Error "Unable to load CSV deck file #{file}, does not exist"
+    @deck = new Pile()
+    csv()
+      .fromPath( file, { columns: ['name', 'num', 'set', 'type', 'block'] } )
+      .on 'error', (error) ->
+        throw error
+      # this seems annoying and bad?
+      # have to use the fat arrow to be able to call handleCsvData to be able to
+      # access this.loadedCallback and this.loaded
+      .on 'data', (data, index) =>
+        @handleCsvData( data, index )
+      .on 'end', () =>
+        @handleLoadedData()
+    true
+
+  handleLoadedData: () ->
+    @loaded = true
+    if @loadedCallback
+      @loadedCallback( @deck )
+
+  handleCsvData: ( data, index ) ->
+    if data.name and data.num and data.type != 'Hero'
+      for i in [0...data.num]
+        card = cl.getCard data.name
+        if card?
+          @deck.addTop card
+        else
+          throw new Error "Unable to load card with name '#{data.name}'"
+
+  cardsLoaded: () ->
+    return cl.loadedFiles.length > 0
+
+  readFileIntoArray: (file) ->
     if path.existsSync( file )
       return fs.readFileSync(file).toString().split("\n")
     else
-      return null
+      throw new Error "Unable to read file #{file}, doesn't exist or no permissions"
 
 exports.DeckLoader = DeckLoader

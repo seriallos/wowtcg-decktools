@@ -12,12 +12,16 @@ describe 'deckalyzer', ->
     writeTestFiles()
 
     CardLoader.loadCardsFromFile testCardsFile
-    @testDeck = DeckLoader.loadFromDeckFile testDeckFile
-    (expect @testDeck.size()).toEqual 61
+    dl = new DeckLoader()
+    dl.loadFromDeckFile testDeckFile
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
 
-    @deckalyzer = new Deckalyzer @testDeck
-    (expect @deckalyzer).not.toBe null
-    (expect @deckalyzer.deck.size()).toEqual 61
+      @deckalyzer = new Deckalyzer dl.deck
+      (expect @deckalyzer).not.toBe null
+      (expect @deckalyzer.deck.size()).toEqual 61
 
   afterEach () ->
     deleteTestFiles()
