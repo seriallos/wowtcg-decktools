@@ -24,7 +24,7 @@ callDeckalyzer = ( deckFile, callback, args ) ->
     if args.filter
       filter = JSON.parse args.filter
   catch error
-    console.log "ERROR: Invalid JSON query (Must be fully quoted): " + error.message
+    stderr "ERROR: Invalid JSON query (Must be fully quoted): " + error.message
 
   deck = loadDeck deckFile
   if null == deck
@@ -33,7 +33,7 @@ callDeckalyzer = ( deckFile, callback, args ) ->
   return switch callback
     when 'count' then d.count( filter )
     when 'distinct' then d.distinct( args.type, filter )
-    else console.log "Unknown command"
+    else stderr "Unknown command"
 
 program
   .version('0.1')
