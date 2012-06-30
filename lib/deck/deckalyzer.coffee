@@ -12,7 +12,7 @@ class Deckalyzer
     results = {}
     for card in filtered.getCards()
       # TODO: properly handle array values
-      if card[ key ]
+      if card[ key ]?
         if results[ card[ key ] ]
           results[ card[ key ] ] += 1
         else
