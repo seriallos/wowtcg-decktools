@@ -1,6 +1,7 @@
 #!/usr/bin/env coffee
 wowtcg  = require('../lib/wowtcg')
 program = require('commander')
+sprint  = require('sprint')
 
 dataDir = __dirname + '/../data/'
 
@@ -24,16 +25,24 @@ callDeckalyzer = ( deckFile, callback, args ) ->
     if args.filter
       filter = JSON.parse args.filter
   catch error
-    stderr "ERROR: Invalid JSON query (Must be fully quoted): " + error.message
+    stderr "[WARNING] Invalid JSON query (Must be fully quoted): " + error.message
 
   deck = loadDeck deckFile
   if null == deck
-    stderr "Unable to load #{ deckFile }"
+    stderr "[ERROR] Unable to load #{ deckFile }"
+    process.exit 1
   d = new wowtcg.Deckalyzer deck
   return switch callback
     when 'count' then d.count( filter )
     when 'distinct' then d.distinct( args.type, filter )
     else stderr "Unknown command"
+
+# commander code to handle arguments
+
+showHelp = () ->
+  program.parse [process.argv[0], process.argv[1], '-h']
+
+actionMatched = false
 
 program
   .version('0.1')
@@ -42,20 +51,44 @@ program
   .command('distinct [type] [deck] [query]')
   .description('Report costs for a deck')
   .action( ( type, deckFile, query ) ->
-    costs = callDeckalyzer deckFile, 'distinct', { type: type, filter: query }
-    for cost, count of costs
-      if cost
-        console.log "#{cost}: #{count} cards"
+    actionMatched = true
+    if not type
+      stderr '[ERROR] Must provide a card attribute (type, cost, faction, etc)'
+    else if not deckFile
+      stderr '[ERROR] Must provide a .deck file.  See "--help" for a list of available commands.'
+    else
+      costs = callDeckalyzer deckFile, 'distinct', { type: type, filter: query }
+      for cost, count of costs
+        if cost
+          console.log "#{cost}: #{count} cards"
   )
 
 program
   .command('count [deck] [query]')
   .description('Get count of cards in a deck')
   .action( (deckFile, query ) ->
-    count = callDeckalyzer deckFile, 'count', { filter: query }
-    console.log count
+    actionMatched = true
+    if not deckFile
+      stderr '[ERROR] Must provide a .deck file.  See "--help" for a list of available commands.'
+    else
+      count = callDeckalyzer deckFile, 'count', { filter: query }
+      console.log count
   )
 
 program.parse( process.argv )
 
-# vim: ft=coffee
+# handle no args or invalid command
+# https://github.com/visionmedia/commander.js/issues/57
+if !program.args.length
+  showHelp()
+  process.exit 0
+else
+  # only run these checks if an action was not matched
+  if not actionMatched
+    validCommands = program.commands.map (cmd) ->
+      return cmd.name
+    invalidCommands = program.args.filter (cmd) ->
+      return( typeof cmd == 'string' and not (cmd in validCommands))
+    if invalidCommands.length
+      stderr sprint '[ERROR] - Invalid command: "%s". See "--help" for a list of available commands', invalidCommands.join(',')
+
