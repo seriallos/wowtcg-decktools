@@ -16,8 +16,8 @@ Dependencies
 
 *Note:* NPM package isn't quite ready yet.  Manual installation requires node-commander.  More info in the package.json
 
-Usage
------
+CLI Usage
+---------
 
     ➜  wowtcg-decktools git:(master) ✗ ./bin/deckotron distinct cost data/decks/famasin.deck
     0: 12 cards
@@ -57,6 +57,35 @@ Usage
        -V, --version  output the version number
 
 The query is a MongoDB-like JSON syntax.  Currently must be valid JSON (quoted keys, etc).  Some of the more complex filters don't work on the command line yet.
+
+Library Usage
+-------------
+
+CoffeeScript example:
+
+    wowtcg = require('wowtcg')
+    # most sets available in ./data/cards/
+    wowtcg.CardLoader.loadCardsFromFile('./path/to/cards.json')
+    # simple deck format:
+    # (# cards) (card name)
+    deck = wowtcg.DeckLoader.loadFromDeckFile('./path/to/mydeck.deck')
+    d = new wowtcg.Deckalyzer deck
+
+    # get the size of the deck
+    numCards = d.count()
+
+    # get the number of cards with cost 2
+    cost2count = d.count( { cost: 2 } )
+
+    # find count of cards with name that matches the regex /jadefire/i
+    jadefireCards = d.count( {name: {$regex: /jadefire/i} } )
+
+    # get an object with each card type and count
+    typeBreakdown = d.distinct( 'type' )
+
+    # get breakdown of card types with cost between 2 and 4 inclusive
+    stuff = d.distinct( 'type', { cost: { $gte: 2, $lte: 4 } } )
+
 
 My Dev Cycle
 ------------
