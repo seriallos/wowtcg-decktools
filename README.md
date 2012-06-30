@@ -68,23 +68,27 @@ CoffeeScript example:
     wowtcg.CardLoader.loadCardsFromFile('./path/to/cards.json')
     # simple deck format:
     # (# cards) (card name)
-    deck = wowtcg.DeckLoader.loadFromDeckFile('./path/to/mydeck.deck')
-    d = new wowtcg.Deckalyzer deck
+    dl = new wowtcg.DeckLoader()
+    dl.loadFromDeckFile('./path/to/mydeck.deck', ( deck ) ->
 
-    # get the size of the deck
-    numCards = d.count()
+      # deck loading happens asynchronously so wrap all work in a callback
 
-    # get the number of cards with cost 2
-    cost2count = d.count( { cost: 2 } )
+      d = new wowtcg.Deckalyzer deck
 
-    # find count of cards with name that matches the regex /jadefire/i
-    jadefireCards = d.count( {name: {$regex: /jadefire/i} } )
+      # get the size of the deck
+      numCards = d.count()
 
-    # get an object with each card type and count
-    typeBreakdown = d.distinct( 'type' )
+      # get the number of cards with cost 2
+      cost2count = d.count( { cost: 2 } )
 
-    # get breakdown of card types with cost between 2 and 4 inclusive
-    stuff = d.distinct( 'type', { cost: { $gte: 2, $lte: 4 } } )
+      # find count of cards with name that matches the regex /jadefire/i
+      jadefireCards = d.count( {name: {$regex: /jadefire/i} } )
+
+      # get an object with each card type and count
+      typeBreakdown = d.distinct( 'type' )
+
+      # get breakdown of card types with cost between 2 and 4 inclusive
+      stuff = d.distinct( 'type', { cost: { $gte: 2, $lte: 4 } } )
 
 
 My Dev Cycle
@@ -99,10 +103,10 @@ windows:
 
 **Continuous compilation, linting, and testing:**
 
-    ./run-o-tron-5000.sh
+    ./test-o-tron-5000.sh
     
     # this just runs the below:
-    # ./pc.sh "cake watch" "jasmine-node --autotest --coffee lib"
+    # ./pc.sh "cake watch-lint" "jasmine-node --autotest --coffee ."
 
 pc.sh is a simple little bash script to run both commands at the same time and respond to a Ctrl-C to the one pc.sh
 command (instead of background shenanigans)
