@@ -5,6 +5,9 @@
 
 - CLI
     - Bindings to deckalyzer count/distinct and filters
+    - Selectable card block using -b, --block, defaults to 6
+    - Selectable expansions using -e, --expac "ele,coh,tot"
+    - Tests for CLI
 
 - General
     - Test in a browser, make sure it works on server and web client
