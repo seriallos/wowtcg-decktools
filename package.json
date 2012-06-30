@@ -17,7 +17,8 @@
   ]
 
   , "dependencies" : {
-    "commander" : "0.5.x"
+    "commander" : "0.5.x",
+    "csv" : "0.1.x"
   }
 
   , "devDependencies": {
