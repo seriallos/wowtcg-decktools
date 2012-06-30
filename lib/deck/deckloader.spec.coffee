@@ -15,6 +15,8 @@ describe 'deckloader', ->
   afterEach () ->
     deleteTestFiles()
 
+  #**************** .deck *********************
+
   it "throws an exception if no card sets have been loaded", ->
     # ensure no cards are in the card loader given that we preload every time
     CardLoader.reset()
@@ -38,7 +40,17 @@ describe 'deckloader', ->
       dl.loadFromDeckFile( __dirname + '/bad-file' )
     expect(loaderCall).toThrow()
 
-  it "throws an exception when the file doesn't exist", ->
+  #**************** .csv *********************
+
+  it "throws an exception if no card sets have been loaded when loading CSV", ->
+    # ensure no cards are in the card loader given that we preload every time
+    CardLoader.reset()
+    loaderCall = () ->
+      dl = new DeckLoader()
+      dl.loadFromCsvFile( testCsvFile )
+    expect(loaderCall).toThrow()
+
+  it "throws an exception when CSV file doesn't exist", ->
     loaderCall = () ->
       dl = new DeckLoader()
       testDeck = dl.loadFromCsvFile( "/ADB/BAD/ASDASD/bad.csv" )
@@ -52,19 +64,75 @@ describe 'deckloader', ->
     runs ->
       (expect dl.deck.size()).toEqual 61
 
+  #**************** .mwDeck *********************
+
+  it "throws an exception if no card sets have been loaded when loading mwDeck", ->
+    # ensure no cards are in the card loader given that we preload every time
+    CardLoader.reset()
+    loaderCall = () ->
+      dl = new DeckLoader()
+      dl.loadFromMwDeckFile( testMwDeckFile )
+    expect(loaderCall).toThrow()
+
+  it "throws an exception when mwDeck file doesn't exist", ->
+    loaderCall = () ->
+      dl = new DeckLoader()
+      testDeck = dl.loadFromMwDeckFile( "/ADB/BAD/ASDASD/bad.mwdeck" )
+    expect(loaderCall).toThrow()
+
+  it "can load a known mwDeck file", ->
+    dl = new DeckLoader()
+    dl.loadFromMwDeckFile( testMwDeckFile )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+
+  #***************** .o8d ***********************
+
+  it "throws an exception if no card sets have been loaded when loading o8d", ->
+    # ensure no cards are in the card loader given that we preload every time
+    CardLoader.reset()
+    loaderCall = () ->
+      dl = new DeckLoader()
+      dl.loadFromO8dFile( testO8dFile )
+    expect(loaderCall).toThrow()
+
+  it "throws an exception when o8d file doesn't exist", ->
+    loaderCall = () ->
+      dl = new DeckLoader()
+      testDeck = dl.loadFromO8dFile( "/ADB/BAD/ASDASD/bad.mwdeck" )
+    expect(loaderCall).toThrow()
+
+  it "can load a known o8d file", ->
+    dl = new DeckLoader()
+    dl.loadFromO8dFile( testO8dFile )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+
+  #************** data/files ********************
+
   randSeed = Math.floor( Math.random() * 99999999 )
   testDeckFile = __dirname + '/.test.'+randSeed+'.deck'
   testCsvFile = __dirname + '/.test.'+randSeed+'.csv'
+  testMwDeckFile = __dirname + '/.test.'+randSeed+'.mwDeck'
+  testO8dFile = __dirname + '/.test.'+randSeed+'.o8d'
   testCardsFile = __dirname + '/.test.'+randSeed+'.cards'
 
   writeTestFiles = () ->
     fs.writeFileSync( testDeckFile, testDeckData )
     fs.writeFileSync( testCsvFile, testCsvData )
+    fs.writeFileSync( testMwDeckFile, testMwDeckData )
+    fs.writeFileSync( testO8dFile, testO8dData )
     fs.writeFileSync( testCardsFile, testCardsData )
 
   deleteTestFiles = () ->
     fs.unlinkSync( testDeckFile )
     fs.unlinkSync( testCsvFile )
+    fs.unlinkSync( testMwDeckFile )
+    fs.unlinkSync( testO8dFile )
     fs.unlinkSync( testCardsFile )
 
   testDeckData = """
@@ -158,6 +226,105 @@ Trag'ush,1,CoH,Ally,6
 "Waking the Beast",1,TOT,Quest,6
 "Witch Doctor Ka'booma",2,CoH,Ally,6
 Zaza'jun,1,CoH,Ally,6
+  """
+
+  testMwDeckData = """
+// Deck file for Magic Workstation (http://www.magicworkstation.com)
+// LINKED WITH: 5;6
+    2 [6] As Hyjal Burns {6}
+    1 [5] Bloodbane's Fall {5}
+    1 [5] Blueleaf Tubers {5}
+    1 [6] Branch of Nordrassil {6}
+    1 [6] Deathsmasher Mogdar {6}
+    2 [6] Entangling Roots {6}
+    2 [5] Entrenched {5}
+SB: 1 [6] Fama'sin the Lifeseer {6}
+SB: 1 [6] Fama'sin the Lifeseer Back {6}
+    3 [6] Friends in High Places {6}
+    1 [6] Gilblin Plunderer {6}
+    1 [6] Gnash {6}
+    1 [6] Gravelord Adams {6}
+    1 [6] Grug the Bonecrusher {6}
+    1 [6] Harpy Matriarch {6}
+    1 [6] If You're Not Against Us... {6}
+    1 [6] Innervate {6}
+    2 [6] Jadefire Felsworn {6}
+    2 [6] Jadefire Hellcaller {6}
+    1 [6] Jadefire Satyr {6}
+    2 [6] Jadefire Scout {6}
+    4 [6] Jadefire Trickster {6}
+    1 [6] Kalam'ti {6}
+    1 [6] Keeper Balos {6}
+    1 [6] Mark of Elderlimb {6}
+    2 [6] Mark of Goldrinn {6}
+    1 [6] Mark of the Ancients {6}
+    2 [5] Moonshard {5}
+    1 [6] Nature's Reach {6}
+    1 [6] Rescue the Earthspeaker! {6}
+    1 [6] Runzik Shrapnelwhiz {6}
+    1 [6] Seeds of Their Demise {6}
+    2 [6] Stalwart Bear Form {6}
+    3 [6] Stonebranch, Ancient of War {6}
+    2 [6] The Last Living Lorekeeper {6}
+    1 [5] The Maw of Iso'rath {5}
+    1 [6] Tor Earthwalker {6}
+    1 [6] Trag'ush {6}
+    4 [6] Verdant Boon {6}
+    1 [6] Waking the Beast {6}
+    2 [6] Witch Doctor Ka'booma {6}
+    1 [6] Zaza'jun {6}
+  """
+
+  testO8dData = """
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<deck game="d7e6fd4f-5252-4c4c-4a4a-a645c4d8e45f">
+  <section name="Main">
+    <card qty="2" >As Hyjal Burns</card>
+    <card qty="1" >Bloodbane's Fall</card>
+    <card qty="1" >Blueleaf Tubers</card>
+    <card qty="1" >Branch of Nordrassil</card>
+    <card qty="1" >Deathsmasher Mogdar</card>
+    <card qty="2" >Entangling Roots</card>
+    <card qty="2" >Entrenched</card>
+    <card qty="3" >Friends in High Places</card>
+    <card qty="1" >Gilblin Plunderer</card>
+    <card qty="1" >Gnash</card>
+    <card qty="1" >Gravelord Adams</card>
+    <card qty="1" >Grug the Bonecrusher</card>
+    <card qty="1" >Harpy Matriarch</card>
+    <card qty="1" >If You're Not Against Us...</card>
+    <card qty="1" >Innervate</card>
+    <card qty="2" >Jadefire Felsworn</card>
+    <card qty="2" >Jadefire Hellcaller</card>
+    <card qty="1" >Jadefire Satyr</card>
+    <card qty="2" >Jadefire Scout</card>
+    <card qty="4" >Jadefire Trickster</card>
+    <card qty="1" >Kalam'ti</card>
+    <card qty="1" >Keeper Balos</card>
+    <card qty="1" >Mark of Elderlimb</card>
+    <card qty="2" >Mark of Goldrinn</card>
+    <card qty="1" >Mark of the Ancients</card>
+    <card qty="2" >Moonshard</card>
+    <card qty="1" >Nature's Reach</card>
+    <card qty="1" >Rescue the Earthspeaker!</card>
+    <card qty="1" >Runzik Shrapnelwhiz</card>
+    <card qty="1" >Seeds of Their Demise</card>
+    <card qty="2" >Stalwart Bear Form</card>
+    <card qty="3" >Stonebranch, Ancient of War</card>
+    <card qty="2" >The Last Living Lorekeeper</card>
+    <card qty="1" >The Maw of Iso'rath</card>
+    <card qty="1" >Tor Earthwalker</card>
+    <card qty="1" >Trag'ush</card>
+    <card qty="4" >Verdant Boon</card>
+    <card qty="1" >Waking the Beast</card>
+    <card qty="2" >Witch Doctor Ka'booma</card>
+    <card qty="1" >Zaza'jun</card>
+  </section>
+  <section name="Hero">
+    <card qty="1" >Fama'sin the Lifeseer</card>
+    <card qty="1" >Fama'sin the Lifeseer Back</card>
+  </section>
+</deck>
   """
 
   testCardsData = """
