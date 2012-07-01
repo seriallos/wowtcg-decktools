@@ -11,6 +11,7 @@
 - CLI
     - Selectable card block using -b, --block, defaults to 6
     - Selectable expansions using -e, --expac "ele,coh,tot"
+    - Read decks from STDIN
 
 - DeckLoader
     - Separate data formats more cleanly.  All in one file is ugly and bad
