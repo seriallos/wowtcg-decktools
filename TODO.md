@@ -12,9 +12,9 @@
     - Selectable card block using -b, --block, defaults to 6
     - Selectable expansions using -e, --expac "ele,coh,tot"
 
-- Deck Formats
-    - Magic Workstation
-    - OCTGN
+- DeckLoader
+    - Separate data formats more cleanly.  All in one file is ugly and bad
+    - Clean up all the callbacks.  Hard to maintain right now
 
 - Tests
     - Update tests to clean up all their own test files in case of failure
