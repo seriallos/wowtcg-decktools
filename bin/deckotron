@@ -18,9 +18,10 @@ loadDeck = ( deckFile, whenLoaded ) ->
       wowtcg.CardLoader.loadCardsFromFile __dirname + "/../data/cards/#{set}.json"
   dl = new wowtcg.DeckLoader()
   try
-    dl.loadFromDeckFile deckFile, whenLoaded
+    dl.loadFromFile deckFile, whenLoaded
   catch error
-    stderr "[ERROR] Unable to load file #{deckFile}" + error.message
+    stderr "[ERROR] Unable to load file #{deckFile}: " + error.message
+    process.exit 2
 
 # helper to parse a deck file, call deckalyzer, and return data
 callDeckalyzer = ( deckFile, callback, args ) ->

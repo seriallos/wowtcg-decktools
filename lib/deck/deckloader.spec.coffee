@@ -145,6 +145,42 @@ describe 'deckloader', ->
     runs ->
       (expect dl.deck.size()).toEqual 61
 
+  #************* File Guessing ******************
+
+  it "can guess a .deck file by extension", ->
+    dl = new DeckLoader()
+    dl.loadFromFile testDeckFile
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+  it "can guess a .csv file by extension", ->
+    dl = new DeckLoader()
+    dl.loadFromFile testCsvFile
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+  it "can guess a .mwdeck file by extension", ->
+    dl = new DeckLoader()
+    dl.loadFromFile testMwDeckFile
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+  it "can guess a .o8d file by extension", ->
+    dl = new DeckLoader()
+    dl.loadFromFile testDeckFile
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+  it "throws an exception when it sees an unknown file extension", ->
+    loaderCall = () ->
+      dl = new DeckLoader
+      dl.loadFromFile "ieatbees.txt"
+    expect(loaderCall).toThrow()
+
   #************** data/files ********************
 
   randSeed = Math.floor( Math.random() * 99999999 )

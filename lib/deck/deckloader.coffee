@@ -44,6 +44,17 @@ class DeckLoader
       @handleRegexLines( data, lineRegex )
       parsingDoneCallback()
 
+  # guess the file format!
+  loadFromFile: ( file, loadedCallback ) ->
+    suffix = file.substr( file.lastIndexOf( '.' ) + 1 )
+    switch suffix.toLowerCase()
+      when 'deck' then @loadFromDeckFile file, loadedCallback
+      when 'csv' then @loadFromCsvFile file, loadedCallback
+      when 'mwdeck' then @loadFromMwDeckFile file, loadedCallback
+      when 'o8d' then @loadFromO8dFile file, loadedCallback
+      else
+        throw new Error "Unsupported file type '.#{suffix}'"
+
   loadFromDeckFile: (file, loadedCallback ) ->
     @load file, () =>
       # open file
