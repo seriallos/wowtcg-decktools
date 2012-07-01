@@ -54,6 +54,7 @@ class DeckLoader
       when 'o8d' then @loadFromO8dFile file, loadedCallback
       else
         throw new Error "Unsupported file type '.#{suffix}'"
+    true
 
   loadFromDeckFile: (file, loadedCallback ) ->
     @load file, () =>

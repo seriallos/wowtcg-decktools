@@ -24,7 +24,7 @@ loadDeck = ( deckFile, whenLoaded ) ->
     process.exit 2
 
 # helper to parse a deck file, call deckalyzer, and return data
-callDeckalyzer = ( deckFile, callback, args ) ->
+callDeckalyzer = ( deckFile, callback, args, whenAnalyzed ) ->
   filter = null
   try
     if args.filter
@@ -37,10 +37,11 @@ callDeckalyzer = ( deckFile, callback, args ) ->
       stderr "[ERROR] Unable to load #{ deckFile }"
       process.exit 1
     d = new wowtcg.Deckalyzer deck
-    return switch callback
+    result = switch callback
       when 'count' then d.count( filter )
       when 'distinct' then d.distinct( args.type, filter )
       else stderr "Unknown command"
+    whenAnalyzed( result )
 
 # commander code to handle arguments
 
@@ -62,10 +63,13 @@ program
     else if not deckFile
       stderr '[ERROR] Must provide a .deck file.  See "--help" for a list of available commands.'
     else
-      costs = callDeckalyzer deckFile, 'distinct', { type: type, filter: query }
-      for cost, count of costs
-        if cost
-          console.log "#{cost}: #{count} cards"
+      # getting into anonymous function hell
+      # need to make this better
+      # .on methods?
+      callDeckalyzer deckFile, 'distinct', { type: type, filter: query }, ( result ) ->
+        for cost, count of result
+          if cost
+            console.log "#{cost}: #{count} cards"
   )
 
 program
@@ -76,8 +80,8 @@ program
     if not deckFile
       stderr '[ERROR] Must provide a .deck file.  See "--help" for a list of available commands.'
     else
-      count = callDeckalyzer deckFile, 'count', { filter: query }
-      console.log count
+      callDeckalyzer deckFile, 'count', { filter: query }, (result) ->
+        console.log result
   )
 
 program.parse( process.argv )
