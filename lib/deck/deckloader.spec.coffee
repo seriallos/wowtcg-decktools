@@ -25,6 +25,15 @@ describe 'deckloader', ->
       dl.loadFromDeckFile( testDeckFile )
     expect(loaderCall).toThrow()
 
+  it 'can load a known deck from string data', ->
+    # we know the test file contains 61 cards
+    dl = new DeckLoader()
+    dl.parseDeckData( testDeckData )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+
   it 'can load a known deck from a .deck file', ->
     # we know the test file contains 61 cards
     dl = new DeckLoader()
@@ -34,7 +43,7 @@ describe 'deckloader', ->
     runs ->
       (expect dl.deck.size()).toEqual 61
 
-  it "returns null when a file can't be read", ->
+  it "throws when a file can't be read", ->
     loaderCall = () ->
       dl = new DeckLoader()
       dl.loadFromDeckFile( __dirname + '/bad-file' )
@@ -55,6 +64,14 @@ describe 'deckloader', ->
       dl = new DeckLoader()
       testDeck = dl.loadFromCsvFile( "/ADB/BAD/ASDASD/bad.csv" )
     expect(loaderCall).toThrow()
+
+  it "can load a known CSV string", ->
+    dl = new DeckLoader()
+    dl.parseCsvData( testCsvData )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
 
   it "can load a known CSV deck file", ->
     dl = new DeckLoader()
@@ -80,6 +97,14 @@ describe 'deckloader', ->
       testDeck = dl.loadFromMwDeckFile( "/ADB/BAD/ASDASD/bad.mwdeck" )
     expect(loaderCall).toThrow()
 
+  it "can load a known mwDeck string", ->
+    dl = new DeckLoader()
+    dl.parseMwDeckData( testMwDeckData )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
+
   it "can load a known mwDeck file", ->
     dl = new DeckLoader()
     dl.loadFromMwDeckFile( testMwDeckFile )
@@ -103,6 +128,14 @@ describe 'deckloader', ->
       dl = new DeckLoader()
       testDeck = dl.loadFromO8dFile( "/ADB/BAD/ASDASD/bad.mwdeck" )
     expect(loaderCall).toThrow()
+
+  it "can load a known o8d string", ->
+    dl = new DeckLoader()
+    dl.parseO8dData( testO8dData )
+    waitsFor ->
+      return dl.loaded
+    runs ->
+      (expect dl.deck.size()).toEqual 61
 
   it "can load a known o8d file", ->
     dl = new DeckLoader()
