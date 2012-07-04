@@ -1,4 +1,5 @@
-Pile = require('./pile').Pile
+wowtcg = require( __dirname + '/../../lib/wowtcg' )
+Pile   = wowtcg.Pile
 
 describe 'pile', ->
   deck = null

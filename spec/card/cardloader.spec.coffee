@@ -1,4 +1,4 @@
-CardLoader = require('./cardloader').CardLoader
+CardLoader = require(__dirname+'/../../lib/wowtcg').CardLoader
 fs         = require('fs')
 
 describe 'cardloader', ->

@@ -1,4 +1,4 @@
-wowtcg = require('./wowtcg')
+wowtcg = require(__dirname+'/../lib/wowtcg')
 fs     = require('fs')
 
 describe 'wowtcg', ->

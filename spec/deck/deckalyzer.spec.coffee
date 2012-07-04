@@ -1,8 +1,10 @@
-Deckalyzer = require('./deckalyzer').Deckalyzer
-DeckLoader = require('./deckloader').DeckLoader
-CardLoader = require('../card/cardloader').CardLoader
-Pile       = require('./pile').Pile
+wowtcg     = require(__dirname + '/../../lib/wowtcg' )
 fs         = require('fs')
+
+Deckalyzer = wowtcg.Deckalyzer
+DeckLoader = wowtcg.DeckLoader
+CardLoader = wowtcg.CardLoader
+Pile       = wowtcg.Pile
 
 describe 'deckalyzer', ->
 

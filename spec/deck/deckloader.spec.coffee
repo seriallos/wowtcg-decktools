@@ -1,6 +1,8 @@
-DeckLoader = require('./deckloader').DeckLoader
-CardLoader = require('../card/cardloader').CardLoader
+wowtcg     = require( __dirname + '/../../lib/wowtcg' )
 fs         = require('fs')
+
+DeckLoader = wowtcg.DeckLoader
+CardLoader = wowtcg.CardLoader
 
 describe 'deckloader', ->
 
