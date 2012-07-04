@@ -1,10 +1,10 @@
 {
-  "name": "WoW TCG DeckTools"
+  "name": "wowtcg"
   , "preferGlobal": "false"
-  , "version": "0.1"
+  , "version": "0.0.1"
   , "author": "Dave Hendler <sollaires@gmail.com>"
   , "description": "WoW TCG Tools - deck stats, analysis, and more"
-  , "main": "./lib/lib/wowtcg.js"
+  , "main": "./lib/wowtcg.coffee"
   , "repository": {
       "type": "git"
     , "url": "https://github.com/seriallos/wowtcg-decktools.git"
@@ -18,12 +18,13 @@
 
   , "dependencies" : {
     "commander" : "0.5.x",
-    "csv" : "0.1.x"
+    "csv" : ">=0.0.15",
+    "amdefine" : ">=0.0.2",
+    "coffee-script" : ">=1.3.x"
   }
 
   , "devDependencies": {
-    "jasmine-node" : "1.0.x",
-    "csv" : "0.1.x"
+    "jasmine-node" : "1.0.x"
   }
 
   , "engine": {
