@@ -4,7 +4,7 @@
   , "version": "0.0.1"
   , "author": "Dave Hendler <sollaires@gmail.com>"
   , "description": "WoW TCG Tools - deck stats, analysis, and more"
-  , "main": "./lib/wowtcg.coffee"
+  , "main": "./js/wowtcg.js"
   , "repository": {
       "type": "git"
     , "url": "https://github.com/seriallos/wowtcg-decktools.git"
@@ -19,7 +19,6 @@
   , "dependencies" : {
     "commander" : "0.5.x",
     "csv" : ">=0.0.15",
-    "amdefine" : ">=0.0.2",
     "coffee-script" : ">=1.3.x"
   }
 

@@ -1,1 +1,1 @@
-./pc.sh "cake watch-lint" "jasmine-node --autotest --coffee ."
+./pc.sh "cake watch" "jasmine-node --autotest --coffee spec"
