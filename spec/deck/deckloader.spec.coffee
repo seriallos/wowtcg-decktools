@@ -1,4 +1,4 @@
-wowtcg     = require( __dirname + '/../../lib/wowtcg' )
+wowtcg     = require( __dirname + '/../../src/wowtcg' )
 fs         = require('fs')
 
 DeckLoader = wowtcg.DeckLoader
